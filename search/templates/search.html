@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Google Search{% endblock %}
+
+{% block content %}
+    <h1>Search Google</h1>
+
+    <!-- Search form -->
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <input type="text" name="query" value="{{ query }}" placeholder="Enter search keywords" class="form-control" aria-label="Search query input">
+        <button type="submit" class="btn btn-primary mt-2" aria-label="Submit search">Search</button>
+    </form>
+
+    {% if query %}
+        <h2 class="mt-4">Results for "{{ query }}":</h2> <!-- Display search query for context -->
+
+        <!-- Results list -->
+        <ul class="list-group">
+            {% for result in results %}
+                <li class="list-group-item">
+                    <a href="{{ result.link }}" target="_blank" aria-label="Open result: {{ result.title }}">{{ result.title }}</a>
+                    <p>{{ result.description }}</p>
+                </li>
+            {% empty %}
+                <li class="list-group-item">No results found.</li>
+            {% endfor %}
+        </ul>
+
+        {% if results %}
+            <!-- Export CSV form -->
+            <form method="post" action="{% url 'export_csv' %}" class="mt-4">
+                {% csrf_token %}
+                <input type="hidden" name="query" value="{{ query }}">
+                <button type="submit" class="btn btn-secondary" aria-label="Download results as CSV">Download Results as CSV</button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}
