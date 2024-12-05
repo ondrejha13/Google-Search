@@ -1,4 +1,4 @@
-# Google Search and SCV Export Application
+# Google Search and CSV Export Application
 
 ## Description
 
