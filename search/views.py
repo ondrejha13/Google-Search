@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 # Function to generate the SOCS cookie for Google search requests
 def generate_socs_cookie():
-    socs_value = f"\b\x01\x12\x1C\b\x01\x12\x12gws_{datetime.today().strftime('%Y%m%d')}-0_RC3\x1A\x02en \x01\x1A\x06\b\x80º¦±\x06"  # Create the SOCS cookie value
+    socs_value = f"\b\x01\x12\x1C\b\x01\x12\x12gws_{datetime.today().strftime('%Y%m%d')}-0_RC3\x1A\x02en \x01\x1A\x06\b\x80º¦±\x06"
     return base64.encodebytes(socs_value.encode()).decode().strip()  # Return the base64 encoded value of the cookie
 
 # Main function to handle the search functionality
